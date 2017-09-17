@@ -12,14 +12,26 @@ export function List(props) {
     props.dispatch(removeTodo(todoIndex));
   }
 
-  const todoList = props.todos.map((todo, index) => {
+  function getTodos() {
+    switch(props.filter) {
+      case 'ALL':
+        return props.todos;
+      case 'COMPLETE':
+        return props.todos.filter((todo) => todo.completed === true);
+      case 'INCOMPLETE':
+        return props.todos.filter((todo) => todo.completed === false);
+      default:
+        return props.todos;
+    }
+  }
+
+  const todoList = getTodos().map((todo, index) => {
     return (
       <ListItem todoText={todo.todoText}
         completed={todo.completed}
         key={index}
-        index={index}
-        onTodoClick={() => onTodoClick(index)}
-        onRemoveClick={() => onRemoveClick(index)}/>
+        onTodoClick={() => onTodoClick(todo.todoIndex)}
+        onRemoveClick={() => onRemoveClick(todo.todoIndex)} />
     );
   });
 
@@ -31,7 +43,8 @@ export function List(props) {
 };
 
 const mapStateToProps = (state) => ({
-  todos: state.todosReducer.todos
+  todos: state.todosReducer.todos,
+  filter: state.filterReducer.filter
 });
 
 export default connect(mapStateToProps)(List);

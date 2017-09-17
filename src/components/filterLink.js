@@ -1,7 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { applyFilter } from '../actions';
 
-export default function FilterLink() {
+export function FilterLink(props) {
+
+  function onFilterClick() {
+    props.dispatch(applyFilter(props.filter));
+  }
+
   return (
-    <div>from Filter Link</div>
+    <span onClick={onFilterClick}>
+      <a href="#">{props.filter}</a>
+      &nbsp;
+    </span>
   );
 };
+
+export default connect()(FilterLink);

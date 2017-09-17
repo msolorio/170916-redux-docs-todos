@@ -1,7 +1,8 @@
 import * as actions from '../actions';
 
 const initialState = {
-  todos: []
+  todos: [],
+  nextTodoIndex: 0
 };
 
 export default function todosReducer(state=initialState, action) {
@@ -12,16 +13,18 @@ export default function todosReducer(state=initialState, action) {
         ...state.todos,
         {
           todoText: action.todoText,
+          todoIndex: action.nextTodoIndex,
           completed: false
         }
-      ]
+      ],
+      nextTodoIndex: state.nextTodoIndex + 1
     });
   }
 
   else if (action.type === actions.TOGGLE_TODO) {
     return Object.assign({}, state, {
-      todos: state.todos.map((todo, index) => {
-          if (index === action.todoIndex) {
+      todos: state.todos.map((todo) => {
+          if (todo.todoIndex === action.todoIndex) {
             return Object.assign({}, todo, {
               completed: !todo.completed
             });
@@ -34,8 +37,8 @@ export default function todosReducer(state=initialState, action) {
 
   else if (action.type === actions.REMOVE_TODO) {
     return Object.assign({}, state, {
-      todos: state.todos.filter((todo, index) => {
-        return index !== action.todoIndex;
+      todos: state.todos.filter((todo) => {
+        return todo.todoIndex !== action.todoIndex;
       })
     });
   }

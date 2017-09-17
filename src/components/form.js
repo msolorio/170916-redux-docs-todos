@@ -11,7 +11,7 @@ export function Form(props) {
   function onFormSubmit(e) {
     e.preventDefault();
 
-    props.dispatch(addTodo(props.inputVal));
+    props.dispatch(addTodo(props.inputVal, props.nextTodoIndex));
 
     props.dispatch(changeInput(''));
   };
@@ -29,7 +29,8 @@ export function Form(props) {
 };
 
 const mapStateToProps = (state) => ({
-  inputVal: state.inputReducer.inputVal
+  inputVal: state.inputReducer.inputVal,
+  nextTodoIndex: state.todosReducer.nextTodoIndex
 });
 
 export default connect(mapStateToProps)(Form);

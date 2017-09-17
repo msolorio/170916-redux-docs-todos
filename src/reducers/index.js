@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import inputReducer from './form';
+import inputReducer from './input';
 import todosReducer from './todos';
+import filterReducer from './filter';
 
 export default combineReducers({
   inputReducer,
-  todosReducer
+  todosReducer,
+  filterReducer
 });
