@@ -1,12 +1,16 @@
 import React from 'react';
 import ListItem from './listItem';
 import { connect } from 'react-redux';
-import { toggleTodo } from '../actions';
+import { toggleTodo, removeTodo } from '../actions';
 
 export function List(props) {
   function onTodoClick(todoIndex) {
     props.dispatch(toggleTodo(todoIndex));
   };
+
+  function onRemoveClick(todoIndex) {
+    props.dispatch(removeTodo(todoIndex));
+  }
 
   const todoList = props.todos.map((todo, index) => {
     return (
@@ -14,7 +18,8 @@ export function List(props) {
         completed={todo.completed}
         key={index}
         index={index}
-        onTodoClick={() => onTodoClick(index)}/>
+        onTodoClick={() => onTodoClick(index)}
+        onRemoveClick={() => onRemoveClick(index)}/>
     );
   });
 

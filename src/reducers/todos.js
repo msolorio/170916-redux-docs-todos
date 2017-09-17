@@ -1,11 +1,12 @@
-import { ADD_TODO, TOGGLE_TODO } from '../actions';
+import * as actions from '../actions';
 
 const initialState = {
   todos: []
 };
 
 export default function todosReducer(state=initialState, action) {
-  if (action.type === ADD_TODO) {
+
+  if (action.type === actions.ADD_TODO) {
     return Object.assign({}, state, {
       todos: [
         ...state.todos,
@@ -17,7 +18,7 @@ export default function todosReducer(state=initialState, action) {
     });
   }
 
-  else if (action.type === TOGGLE_TODO) {
+  else if (action.type === actions.TOGGLE_TODO) {
     return Object.assign({}, state, {
       todos: state.todos.map((todo, index) => {
           if (index === action.todoIndex) {
@@ -28,6 +29,14 @@ export default function todosReducer(state=initialState, action) {
             return todo;
           }
         })
+    });
+  }
+
+  else if (action.type === actions.REMOVE_TODO) {
+    return Object.assign({}, state, {
+      todos: state.todos.filter((todo, index) => {
+        return index !== action.todoIndex;
+      })
     });
   }
 

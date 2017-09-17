@@ -1,6 +1,8 @@
 export const CHANGE_INPUT = 'CHANGE_INPUT';
+
 export const ADD_TODO = 'ADD_TODO';
 export const TOGGLE_TODO = 'TOGGLE_TODO';
+export const REMOVE_TODO = 'REMOVE_TODO';
 
 export const changeInput = (inputVal) => ({
     type: CHANGE_INPUT,
@@ -14,5 +16,10 @@ export const addTodo = (todoText) => ({
 
 export const toggleTodo = (todoIndex) => ({
   type: TOGGLE_TODO,
+  todoIndex
+});
+
+export const removeTodo = (todoIndex) => ({
+  type: REMOVE_TODO,
   todoIndex
 });
